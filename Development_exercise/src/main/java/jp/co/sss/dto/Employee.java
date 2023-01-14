@@ -1,5 +1,7 @@
 package jp.co.sss.dto;
 
+import java.sql.Date;
+
 public class Employee {
 
 	/** 社員ID */
@@ -18,7 +20,7 @@ public class Employee {
 	private String address = "";
 	
 	/** 誕生日 */
-	private String birthday = "";
+	private Date birthday = null;
 	
 	/** 権限 */
 	private int authority = 0;
@@ -28,7 +30,6 @@ public class Employee {
 
 	/** 部署テーブルの中身を保持します */
 	private Department department;
-
 	
 	/**
 	 * 社員IDを返します
@@ -114,7 +115,7 @@ public class Employee {
 	 * 誕生日を返します
 	 * @return
 	 */
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
@@ -122,7 +123,7 @@ public class Employee {
 	 * 誕生日を設定します
 	 * @param birthday
 	 */
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
@@ -173,4 +174,5 @@ public class Employee {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+
 }

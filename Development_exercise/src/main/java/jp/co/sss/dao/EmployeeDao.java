@@ -1,9 +1,12 @@
 package jp.co.sss.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +40,9 @@ public class EmployeeDao {
 	 * @param empId   社員ID
 	 * @param empPass パスワード
 	 * @return result
+	 * @throws ParseException 
 	 */
-	public static Employee findEmp(String empId, String empPass) {
+	public static Employee findEmp(String empId, String empPass) throws ParseException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -60,13 +64,18 @@ public class EmployeeDao {
 	
 			// 取得データ格納内容記述
 			ResultSet rs = ps.executeQuery();
+		
+			Date birthday = null;
 			if (rs.next()) {
 				employee.setEmpId(rs.getInt("emp_id"));
 				employee.setEmpPass(rs.getString("emp_pass"));
 				employee.setEmpName(rs.getString("emp_name"));
 				employee.setGender(rs.getInt("gender"));
 				employee.setAddress(rs.getString("address"));
-				employee.setBirthday(rs.getString("birthday"));
+				birthday = (Date) new SimpleDateFormat(
+						"YYYY/MM/dd").parse(rs.getString("birthday")
+					);
+				employee.setBirthday(birthday);
 				employee.setAuthority(rs.getInt("authority"));
 				employee.setDeptId(rs.getInt("dept_id"));
 			}
@@ -82,8 +91,9 @@ public class EmployeeDao {
 	/**
 	 * 社員全件取得するメソッド
 	 * @return
+	 * @throws ParseException 
 	 */
-	public static List<Employee> findAll() {
+	public static List<Employee> findAll() throws ParseException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -102,6 +112,7 @@ public class EmployeeDao {
 			
 			ResultSet rs = ps.executeQuery();
 			
+			Date birthday = null;
 			while(rs.next()) {
 
 				Employee employee = new Employee();
@@ -112,7 +123,10 @@ public class EmployeeDao {
 				// TODO 性別：int型で受け取るためjsp側で表示を切り替える
 				employee.setGender(rs.getInt("gender"));
 				employee.setAddress(rs.getString("address"));
-				employee.setBirthday(rs.getString("birthday"));
+				birthday = (Date) new SimpleDateFormat(
+						"YYYY/MM/dd").parse(rs.getString("birthday")
+								);
+				employee.setBirthday(birthday);
 				// 【権限判定】 1:一般 2:管理者
 				// TODO 権限：int型で受け取るためjsp側で表示を切り替える
 				employee.setAuthority(rs.getInt("authority"));
@@ -131,7 +145,50 @@ public class EmployeeDao {
 		}
 
 		return employeeList;
+	}
+	
+	public static void insert(Employee employee) {
 		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		try {
+			con = DBManager.getConnection();
+			// 職員登録SQL発行
+			ps = con.prepareStatement("INSERT INTO employee"
+					+ "("
+					+ "emp_pass,"
+					+ "emp_name,"
+					+ "gender,"
+					+ "address,"
+					+ "birthday,"
+					+ "authority,"
+					+ "dept_id"
+					+ ") VALUES ("
+					+ "?,?,?,?,?,?,?"
+					+ ")"
+				);
+			
+			// SQLへ渡すパラメータを設定
+			ps.setString(1, employee.getEmpPass());
+			ps.setString(2, employee.getEmpName());
+			ps.setInt(3, employee.getGender());
+			ps.setString(4, employee.getAddress());
+			ps.setDate(5, employee.getBirthday());
+			ps.setInt(6, employee.getAuthority());
+			ps.setInt(7, employee.getDeptId());
+			// SQL実行
+			int result = ps.executeUpdate();
+			// 登録件数をコンソールへ出力
+			System.out.println(result);
+			// コミット実行※これやらないとDBへ反映されない
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// DBコネクションを閉じる
+			DBManager.close(ps, con);
+		}
 	}
 	
 	/**

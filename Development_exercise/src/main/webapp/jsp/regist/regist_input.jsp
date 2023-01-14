@@ -32,17 +32,17 @@
 			<article>
 				<h3>社員登録入力画面</h3>
 				<div class="update">
-					<form action="">
+					<form action="<%=request.getContextPath() %>/regist_input" method="GET">
 						<div class="form">
 							<div class="label">パスワード：</div>
 							<div class="input">
-								<input type="password" name="empPass">
+								<input type="password" name="emp_pass">
 							</div>
 						</div>
 						<div class="form">
 							<div class="label">社員名：</div>
 							<div class="input">
-								<input type="text" name="empName">
+								<input type="text" name="emp_name">
 							</div>
 						</div>
 						<div class="form">
@@ -57,29 +57,29 @@
 						<div class="form">
 							<div class="label">住所：</div>
 							<div class="input">
-								<input type="text" name="empName">
+								<input type="text" name="address">
 							</div>
 						</div>
 						<div class="form">
 							<div class="label">生年月日：</div>
 							<div class="input">
-								<input type="text" name="birthday">
+								<input type="date" name="birthday">
 								(YYYY/MM/DD)
 							</div>
 						</div>
 						<div class="form">
 							<div class="label">権限：</div>
 							<div class="input">
-								<input type="radio" name="autority">
+								<input type="radio" name="authority" value="1">
 								一般&nbsp;&nbsp;
-								<input type="radio" name="autority" checked="checked">
+								<input type="radio" name="authority" value="2">
 								管理者
 							</div>
 						</div>
 						<div class="form">
 							<div class="label">部署名：</div>
 							<div class="input">
-								<select name="input">
+								<select name="dept_id">
 									<option value="1">営業部</option>
 									<option value="2">経理部</option>
 									<option value="3">総務部</option>
@@ -89,8 +89,14 @@
 						<div class="form">
 							<div class="label"></div>
 							<div class="input">
-								<input type="hidden" name="empId" value="2">
-								<input type="submit" value="変更">
+								<input type="hidden" name="emp_pass" value="${ employee.empPass }">
+								<input type="hidden" name="emp_name" value="${ employee.empName }">
+								<input type="hidden" name="gender" value="${ employee.gender }">
+								<input type="hidden" name="address" value="${ employee.address }">
+								<input type="hidden" name="birthday" value="${ employee.birthday }">
+								<input type="hidden" name="authority" value="${ employee.authority }">
+								<input type="hidden" name="dept_id" value="${ employee.department.deptId }">
+								<input type="submit" value="登録">
 							</div>
 						</div>
 					</form>
@@ -98,7 +104,7 @@
 						<div class="form">	
 							<div class="label"></div>
 							<div class="input">
-								<input type="hidden" name="empId" value="2">
+								<input type="hidden" name="emp_id">
 								<input type="submit" value="戻る">
 							</div>
 						</div>
