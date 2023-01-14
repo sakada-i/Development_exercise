@@ -31,6 +31,12 @@
 			</aside>
 			<article>
 				<h3>社員登録完了画面</h3>
+				<div class="message">
+					<p>社員登録処理が完了しました。</p>
+					<p>
+						<a href="../list.html">一覧表示に戻る</a>
+					</p>
+				</div>
 			</article>
 		</div>	
 		<%@include file="/jsp/common/footer.jsp" %>

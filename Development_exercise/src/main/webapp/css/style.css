@@ -38,6 +38,14 @@ footer {
 	line-height: 30px;
 }
 
+p {
+	display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+}
+
 
 table {
 	border-collapse: collapse;
@@ -106,6 +114,11 @@ div.regist_link {
 	padding-right: 35px;
 	padding-bottom: 10px;
 	text-align: right;
+}
+div.message {
+	height: 150px;
+	padding-top: 30px;
+	text-align: center;
 }
 
 /* asideメニューのスタイル */

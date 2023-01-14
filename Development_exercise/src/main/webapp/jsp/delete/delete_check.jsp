@@ -68,11 +68,11 @@
 							}
 						%>
 					</div>
-					<form action="">
+					<form action="<%=request.getContextPath() %>/delete" method="GET">
 						<div class="form">
 							<div class="label"></div>
 							<div class="input">
-								<input type="hidden" name="empId" value="4">
+								<input type="hidden" name="empId" value="${ employee.empId }">
 								<input type="submit" value="削除">
 							</div>
 						</div>
@@ -81,7 +81,7 @@
 						<div class="form">
 							<div class="label"></div>
 							<div class="input">
-								<input type="hidden" name="empId" value="4">
+								<!-- <input type="hidden" name="empId" value="4"> -->
 								<input type="submit" value="戻る">
 							</div>
 						</div>

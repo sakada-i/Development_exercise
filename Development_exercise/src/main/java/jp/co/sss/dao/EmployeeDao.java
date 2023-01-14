@@ -133,4 +133,33 @@ public class EmployeeDao {
 		return employeeList;
 		
 	}
+	
+	/**
+	 * 職員削除を実行するメソッド
+	 * @param empId
+	 */
+	public static void delete(String empId) {
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		try {
+			con = DBManager.getConnection();
+			// deleteSQL発行
+			ps = con.prepareStatement("DELETE FROM employee WHERE emp_id = ?");
+			// SQLへ渡すパラメータを設定
+			ps.setInt(1, Integer.parseInt(empId));
+			// SQL実行
+			int result = ps.executeUpdate();
+			// 削除件数をコンソールへ出力
+			System.out.println(result);
+			// コミット実行※これやらないとDBへ反映されない
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// DBコネクションを閉じる
+			DBManager.close(ps, con);
+		}
+	}
 }
