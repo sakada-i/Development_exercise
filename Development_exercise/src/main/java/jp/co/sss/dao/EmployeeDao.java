@@ -174,7 +174,7 @@ public class EmployeeDao {
 			ps.setString(2, employee.getEmpName());
 			ps.setInt(3, employee.getGender());
 			ps.setString(4, employee.getAddress());
-			ps.setDate(5, employee.getBirthday());
+			ps.setDate(5, (Date) employee.getBirthday());
 			ps.setInt(6, employee.getAuthority());
 			ps.setInt(7, employee.getDeptId());
 			// SQL実行

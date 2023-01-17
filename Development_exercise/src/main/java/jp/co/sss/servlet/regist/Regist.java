@@ -1,9 +1,9 @@
 package jp.co.sss.servlet.regist;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,7 +32,6 @@ public class Regist extends HttpServlet {
 		}
 
 		Employee employee = new Employee();
-//		employee.setEmpId(Integer.parseInt(empId));
 		employee.setEmpPass(request.getParameter("emp_pass"));
 		employee.setEmpName(request.getParameter("emp_name"));
 		employee.setGender(Integer.parseInt(gender));

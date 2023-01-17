@@ -1,6 +1,6 @@
 package jp.co.sss.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Employee {
 

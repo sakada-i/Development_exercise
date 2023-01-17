@@ -29,6 +29,7 @@ public class RegistInput extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
 		Employee employee = new Employee();
 		employee.setEmpPass(request.getParameter("emp_pass"));
 		employee.setEmpName(request.getParameter("emp_name"));
